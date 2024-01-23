@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CarsWebApp.Models.Cars.IndexViewModel>
+
+@{
+    int rowNumber = 1;
+}
+<div class ="container-fluid">
+<h1 class="text-center">All our cars</h1>
+
+<div>
+    <a asp-action="Create" asp-controller="Cars" type="submit" class="btn btn-primary">Add car</a>
+</div>
+
+@if (Model.Any())
+{
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nr</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Fuel</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Transmission</th>
+                    <th scope="col">EnginePower (Kw)</th>
+                    <th scope="col">Engine (L)</th>
+                    <th scope="col">BuiltYear</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var cars in Model)
+                {
+                    <tr>
+                        <td>@rowNumber</td>
+                        <td>@cars.Name</td>
+                        <td>@cars.CarType</td>
+                        <td>@cars.FuelType</td>
+                        <td>@cars.Color</td>
+                        <td>@cars.Transmission</td>
+                        <td>@cars.EnginePowerKw</td>
+                        <td>@cars.Engine</td>
+                        <td>@cars.BuiltYear.Year</td> 
+
+                        <td>
+                            <a asp-action="details" asp-controller="Cars" asp-route-id="@cars.Id" class="btn btn-info">Details</a>
+                            <a asp-action="update" asp-controller="Cars" asp-route-id="@cars.Id" class="btn btn-success">Update</a>
+                            <a asp-action="delete" asp-controller="Cars" asp-route-id="@cars.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+
+                    rowNumber += 1;
+                }
+            </tbody>
+        </table>
+    </form>
+}
+</div>
